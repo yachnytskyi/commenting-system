@@ -31,13 +31,11 @@ This project is a simple commenting system implemented as a Node.js application,
 
 1. Clone this repository to your local machine.
 
-```bash
 git clone https://github.com/yourusername/commenting-system.git
 cd commenting-system
 
 
-Install the required dependencies.
-```bash
+Install the required dependencies
 npm install
 
 Build and run the Docker container.
