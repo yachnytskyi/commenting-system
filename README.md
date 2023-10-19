@@ -1,7 +1,3 @@
-# commenting-system
-Test task
-
-
 # Commenting System - Dockerized Node.js Application
 
 This project is a simple commenting system implemented as a Node.js application, designed for users to leave comments. It includes the ability to add comments, display comments in a cascading format, sort comments, and protect against common web security threats like XSS and SQL injection.
