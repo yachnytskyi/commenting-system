@@ -29,7 +29,7 @@ This project is a simple commenting system implemented as a Node.js application,
 
 ## Usage
 
-1. Clone this repository to your local machine.
+Clone this repository to your local machine.
 
 git clone https://github.com/yourusername/commenting-system.git
 cd commenting-system
@@ -56,6 +56,7 @@ homePage (optional): User's home page (URL format).
 text: Comment text (limited HTML tags allowed).
 captcha: CAPTCHA code for verification.
 Example usage:
+
 curl -X POST -H "Content-Type: application/json" -d '{
   "userName": "John Doe",
   "email": "john@example.com",
@@ -63,5 +64,33 @@ curl -X POST -H "Content-Type: application/json" -d '{
   "text": "This is my comment.",
   "captcha": "testCaptcha123"
 }' http://localhost:3000/comments
+
+GET /top-level-comments: Get top-level comments in table format with sorting.
+Optional query parameters:
+sortBy (default: "date"): Field to sort by ("userName", "email", "date").
+sortOrder (default: "desc"): Sort order ("asc" or "desc").
+Example usage:
+Retrieve top-level comments sorted by user name in ascending order:
+curl http://localhost:3000/top-level-comments?sortBy=userName&sortOrder=asc
+
+GET /comments/:commentId: Get a comment and its child comments.
+Example usage:
+Retrieve a comment with its child comments:
+curl http://localhost:3000/comments/1
+
+Remember to adjust the URL and data in the examples to match your specific use case.
+
+Dockerization
+
+The project is dockerized to ensure that it runs consistently across different environments. You can find the Dockerfile in the project directory.
+
+License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+Feel free to customize this README file to include any additional information or details specific to your project. This is a basic template to get you started.
+
+
+This  README provides clear instructions on how to use the API endpoints of your commenting system, including example `curl` commands for making requests to those endpoints. Make sure to adjust the URLs and data in the examples to match your specific use case.
 
 
