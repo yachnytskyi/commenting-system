@@ -173,4 +173,32 @@ app.get('/top-level-comments', (req, res) => {
   const allowedSortByFields = ['userName', 'email', 'date'];
   const allowedSortOrders = ['asc', 'desc'];
 
-  if (!allowedSortByFields.includes(sortBy) || !allowedSortOrders.includes(sortOrder))
+  if (!allowedSortByFields.includes(sortBy) || !allowedSortOrders.includes(sortOrder)) {
+    return res.status(400).json({ error: 'Invalid sort parameters' });
+  }
+
+  const sql = `SELECT * FROM comments WHERE parentCommentId IS NULL ORDER BY ${sortBy} ${sortOrder}`;
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json(rows);
+  });
+});
+
+// API endpoint to get a comment and its child comments
+app.get('/comments/:commentId', (req, res) => {
+  const { commentId } = req.params;
+
+  // Retrieve the comment with the specified ID
+  db.get('SELECT * FROM comments WHERE id = ?', [commentId], (err, comment) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (!comment) {
+      return res.status(404).json({ error: 'Comment not found' });
+    }
+
+    // Use the recursive function to fetch child comments
+    getCommentsWithChildren(commentId, (err, commentsWith
