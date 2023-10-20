@@ -201,4 +201,23 @@ app.get('/comments/:commentId', (req, res) => {
     }
 
     // Use the recursive function to fetch child comments
-    getCommentsWithChildren(commentId, (err, commentsWith
+    getCommentsWithChildren(commentId, (err, commentsWithChildren) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+
+      // Attach the child comments to the parent comment
+      comment.children = commentsWithChildren;
+
+      res.json(comment);
+    });
+  });
+});
+
+// Set up a static file server for uploaded images
+app.use('/uploads', express.static('uploads'));
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
